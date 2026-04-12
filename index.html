@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.heart {
+  font-size: 100px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.heart:hover {
+  transform: scale(1.2);
+}
+
+.message {
+  display: none;
+  text-align: center;
+}
+
+a {
+  color: pink;
+  text-decoration: none;
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+
+<div id="heart" class="heart">❤️</div>
+
+<div id="message" class="message">
+  <h2>Happy Birthday ❤️</h2>
+  <p>Thank you for all the moments we've shared.</p>
+  <a href="YOUR_YOUTUBE_LINK_HERE" target="_blank">Click here</a>
+</div>
+
+<script>
+document.getElementById("heart").onclick = function() {
+  document.getElementById("heart").style.display = "none";
+  document.getElementById("message").style.display = "block";
+};
+</script>
+
+</body>
+</html>
