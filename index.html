@@ -18,9 +18,11 @@ body {
 }
 
 .heart {
-  font-size: 180px; /* BIGGER HEART */
+  font-size: 260px;
   cursor: pointer;
-  transition: transform 0.3s, opacity 0.5s;
+  display: inline-block;
+  animation: heartbeat 1.2s infinite;
+  transition: opacity 0.5s;
 }
 
 .heart:hover {
@@ -39,9 +41,13 @@ a {
   font-size: 20px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes heartbeat {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.25); }
+  40%  { transform: scale(1); }
+  60%  { transform: scale(1.25); }
+  80%  { transform: scale(1); }
+  100% { transform: scale(1); }
 }
 </style>
 
@@ -59,7 +65,7 @@ a {
 
 <!-- MUSIC -->
 <audio id="music">
-  <source src="YOUR_MUSIC_FILE_LINK_HERE" type="audio/mpeg">
+  <source src="https://soundcloud.com/thekidlaroi/love-again" type="audio/mpeg">
 </audio>
 
 <script>
