@@ -7,7 +7,7 @@
 <style>
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.6);
   z-index: 0;
 }
 
@@ -38,42 +38,42 @@ body::before {
   z-index: 2;
 }
 
-.heart:hover {
-  transform: scale(1.2);
-}
-
 .message {
   display:none;
   text-align:center;
   animation:fadeIn 1.5s ease-in-out;
   position:relative;
   z-index:2;
-  max-width:700px;
+  max-width:750px;
   padding:20px;
 }
 
-.message h1 {
-  font-size:40px;
-  text-shadow:0 4px 20px rgba(0,0,0,.9);
+.crossword {
+  display: inline-grid;
+  grid-template-columns: repeat(6, 42px);
+  gap: 6px;
+  margin: 20px 0;
 }
 
-.message p {
-  font-size:20px;
-  text-shadow:0 2px 10px rgba(0,0,0,.8);
+.cell {
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  font-size: 22px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
 }
 
-#puzzle {
-  margin-top:25px;
+.empty {
+  width: 42px;
+  height: 42px;
 }
 
-input {
-  width:220px;
-  padding:10px;
-  margin:8px;
-  border:none;
-  border-radius:10px;
-  text-align:center;
-  font-size:16px;
+.clues {
+  text-align: left;
+  display: inline-block;
+  font-size: 16px;
 }
 
 button {
@@ -85,23 +85,20 @@ button {
   font-size:16px;
 }
 
-#videoLink{
-  display:none;
-  margin-top:20px;
-}
-
-#wrong{
+#wrong {
   display:none;
   color:#ffb3b3;
 }
 
-a{
+#videoLink {
+  display:none;
+  margin-top:20px;
   color:pink;
   text-decoration:none;
-  font-size:20px;
+  font-size:22px;
 }
 
-@keyframes heartbeat{
+@keyframes heartbeat {
   0%{transform:scale(1)}
   20%{transform:scale(1.25)}
   40%{transform:scale(1)}
@@ -110,11 +107,10 @@ a{
   100%{transform:scale(1)}
 }
 
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
+@keyframes fadeIn {
+  from{opacity:0;}
+  to{opacity:1;}
 }
-
 </style>
 </head>
 
@@ -123,87 +119,108 @@ to{opacity:1;}
 <div id="heart" class="heart">❤️</div>
 
 <div id="message" class="message">
+  <h1>Happy Birthday ❤️</h1>
+  <p>You are amazing and I hope you like this gift.</p>
 
-<h1>Happy Birthday ❤️</h1>
+  <h2>One little puzzle first 👀</h2>
 
-<p>You are amazing and I hope you like this gift.</p>
+  <div class="crossword">
+    <input class="cell" id="l1" maxlength="1">
+    <input class="cell" id="l2" maxlength="1">
+    <input class="cell" id="l3" maxlength="1">
+    <input class="cell" id="l4" maxlength="1">
+    <div class="empty"></div>
+    <div class="empty"></div>
 
-<div id="puzzle">
+    <input class="cell" id="n1" maxlength="1">
+    <input class="cell" id="n2" maxlength="1">
+    <input class="cell" id="n3" maxlength="1">
+    <input class="cell" id="n4" maxlength="1">
+    <div class="empty"></div>
+    <div class="empty"></div>
 
-<h2>One little puzzle first 👀</h2>
+    <input class="cell" id="e1" maxlength="1">
+    <input class="cell" id="e2" maxlength="1">
+    <input class="cell" id="e3" maxlength="1">
+    <input class="cell" id="e4" maxlength="1">
+    <div class="empty"></div>
+    <div class="empty"></div>
+  </div>
 
-<p>1. The little white chaos queen:</p>
-<input id="q1" placeholder="?">
+  <div class="clues">
+    <p>1. The little white chaos queen</p>
+    <p>2. Her favourite crime scene</p>
+    <p>3. What we apparently became in this photo</p>
+  </div>
 
-<p>2. Her favourite crime scene:</p>
-<input id="q2" placeholder="?">
+  <br>
+  <button onclick="checkAnswers()">Unlock ❤️</button>
 
-<p>3. What we apparently became in this photo:</p>
-<input id="q3" placeholder="?">
+  <p id="wrong">Not quite... try again 👀</p>
 
-<br>
-
-<button onclick="checkAnswers()">Unlock ❤️</button>
-
-<p id="wrong">
-Not quite... try again 👀
-</p>
-
-<a id="videoLink"
-href="YOUR_YOUTUBE_LINK_HERE"
-target="_blank">
-
-Watch this ❤️
-
-</a>
-
-</div>
-
+  <a id="videoLink" href="YOUR_YOUTUBE_LINK_HERE" target="_blank">
+    Watch this ❤️
+  </a>
 </div>
 
 <audio id="music">
-<source src="song.mp3" type="audio/mpeg">
+  <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+document.getElementById("heart").onclick = function() {
+  document.getElementById("heart").style.opacity = "0";
 
-document.getElementById("heart").onclick=function(){
+  setTimeout(() => {
+    document.getElementById("heart").style.display = "none";
+    document.getElementById("message").style.display = "block";
+  }, 500);
 
-document.getElementById("heart").style.opacity="0";
-
-setTimeout(()=>{
-document.getElementById("heart").style.display="none";
-document.getElementById("message").style.display="block";
-},500);
-
-document.getElementById("music").play();
-
+  document.getElementById("music").play();
 };
 
-function checkAnswers(){
+const cells = document.querySelectorAll(".cell");
 
-const q1=document.getElementById("q1").value.trim().toLowerCase();
-const q2=document.getElementById("q2").value.trim().toLowerCase();
-const q3=document.getElementById("q3").value.trim().toLowerCase();
+cells.forEach((cell, index) => {
+  cell.addEventListener("input", () => {
+    cell.value = cell.value.toUpperCase();
 
-if(
-q1==="luna" &&
-q2==="nose" &&
-q3==="eggs"
-){
+    if (cell.value && cells[index + 1]) {
+      cells[index + 1].focus();
+    }
+  });
+});
 
-document.getElementById("videoLink").style.display="block";
-document.getElementById("wrong").style.display="none";
+function checkAnswers() {
+  const luna =
+    document.getElementById("l1").value +
+    document.getElementById("l2").value +
+    document.getElementById("l3").value +
+    document.getElementById("l4").value;
 
+  const nose =
+    document.getElementById("n1").value +
+    document.getElementById("n2").value +
+    document.getElementById("n3").value +
+    document.getElementById("n4").value;
+
+  const eggs =
+    document.getElementById("e1").value +
+    document.getElementById("e2").value +
+    document.getElementById("e3").value +
+    document.getElementById("e4").value;
+
+  if (
+    luna.toLowerCase() === "luna" &&
+    nose.toLowerCase() === "nose" &&
+    eggs.toLowerCase() === "eggs"
+  ) {
+    document.getElementById("videoLink").style.display = "block";
+    document.getElementById("wrong").style.display = "none";
+  } else {
+    document.getElementById("wrong").style.display = "block";
+  }
 }
-else{
-
-document.getElementById("wrong").style.display="block";
-
-}
-
-}
-
 </script>
 
 </body>
